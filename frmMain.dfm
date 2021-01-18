@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 416
-  ClientWidth = 661
+  ClientHeight = 425
+  ClientWidth = 685
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,16 +20,16 @@ object Form1: TForm1
   object panForm: TPanel
     Left = 0
     Top = 0
-    Width = 661
-    Height = 416
+    Width = 685
+    Height = 425
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 29
-    ExplicitHeight = 387
+    ExplicitWidth = 661
+    ExplicitHeight = 416
     object Splitter1: TSplitter
       Left = 385
       Top = 1
-      Height = 414
+      Height = 423
       ExplicitLeft = 384
       ExplicitTop = 280
       ExplicitHeight = 100
@@ -38,46 +38,139 @@ object Form1: TForm1
       Left = 1
       Top = 1
       Width = 384
-      Height = 414
+      Height = 423
       Align = alLeft
       TabOrder = 0
-      ExplicitHeight = 385
+      ExplicitHeight = 414
       object lvCountries: TListView
         Left = 1
         Top = 1
         Width = 382
-        Height = 412
+        Height = 421
         Align = alClient
         Columns = <>
         LargeImages = ImageList1
         SmallImages = ImageList1
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitHeight = 383
+        ExplicitHeight = 412
       end
     end
     object panRight: TPanel
       Left = 388
       Top = 1
-      Width = 272
-      Height = 414
+      Width = 296
+      Height = 423
       Align = alClient
       TabOrder = 1
-      ExplicitHeight = 385
+      ExplicitWidth = 272
+      ExplicitHeight = 414
       object Button1: TButton
-        Left = 152
-        Top = 184
+        Left = 184
+        Top = 360
         Width = 75
         Height = 25
         Caption = 'Button1'
         TabOrder = 0
         OnClick = Button1Click
       end
+      object GroupBox1: TGroupBox
+        Left = 1
+        Top = 1
+        Width = 294
+        Height = 248
+        Align = alTop
+        Caption = 'neuen Eintrag hinzuf'#252'gen'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        ExplicitWidth = 271
+        object labCountryName: TLabel
+          Left = 2
+          Top = 21
+          Width = 290
+          Height = 19
+          Margins.Top = 20
+          Align = alTop
+          Caption = 'Name:'
+          ExplicitLeft = 5
+          ExplicitTop = 31
+          ExplicitWidth = 47
+        end
+        object labComment: TLabel
+          Left = 2
+          Top = 67
+          Width = 290
+          Height = 19
+          Align = alTop
+          Caption = 'Kommentar:'
+          ExplicitLeft = 5
+          ExplicitTop = 103
+          ExplicitWidth = 88
+        end
+        object labFlag: TLabel
+          Left = 2
+          Top = 113
+          Width = 290
+          Height = 19
+          Align = alTop
+          Caption = 'Flag:'
+          ExplicitWidth = 35
+        end
+        object imgFlag: TImage
+          Left = 2
+          Top = 132
+          Width = 159
+          Height = 114
+          Align = alLeft
+          ExplicitLeft = 3
+          ExplicitTop = 138
+        end
+        object edtCountryName: TEdit
+          Left = 2
+          Top = 40
+          Width = 290
+          Height = 27
+          Margins.Top = 10
+          Align = alTop
+          TabOrder = 0
+          Text = 'Landesname eingeben'
+          ExplicitLeft = 1
+          ExplicitTop = 46
+          ExplicitWidth = 267
+        end
+        object edtComment: TEdit
+          Left = 2
+          Top = 86
+          Width = 290
+          Height = 27
+          Margins.Top = 10
+          Align = alTop
+          TabOrder = 1
+          Text = 'Kommentar eingeben'
+          ExplicitLeft = 5
+          ExplicitTop = 128
+          ExplicitWidth = 262
+        end
+        object btnLoadImage: TButton
+          Left = 167
+          Top = 208
+          Width = 50
+          Height = 37
+          Align = alCustom
+          Caption = '...'
+          TabOrder = 2
+        end
+      end
     end
   end
   object ImageList1: TImageList
-    Left = 580
-    Top = 62
+    Left = 492
+    Top = 350
     Bitmap = {
       494C010109001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
@@ -483,21 +576,25 @@ object Form1: TForm1
       000000000000}
   end
   object MainMenu1: TMainMenu
-    Left = 428
-    Top = 25
+    Left = 108
+    Top = 9
     object Datei1: TMenuItem
       Caption = 'Datei'
       object ffnen1: TMenuItem
         Caption = #214'ffnen'
-        OnClick = ffnen1Click
+        OnClick = btnOeffnenClick
       end
     end
     object Bearbeiten1: TMenuItem
       Caption = 'Bearbeiten'
+      object lschen1: TMenuItem
+        Caption = 'l'#246'schen'
+        OnClick = btnLoeschenClick
+      end
     end
   end
   object imglFlags: TImageList
-    Left = 456
-    Top = 224
+    Left = 424
+    Top = 352
   end
 end

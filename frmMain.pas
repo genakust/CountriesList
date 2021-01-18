@@ -26,11 +26,21 @@ type
     Bearbeiten1: TMenuItem;
     ffnen1: TMenuItem;
     imglFlags: TImageList;
+    GroupBox1: TGroupBox;
+    edtCountryName: TEdit;
+    labCountryName: TLabel;
+    labComment: TLabel;
+    edtComment: TEdit;
+    labFlag: TLabel;
+    imgFlag: TImage;
+    btnLoadImage: TButton;
+    lschen1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure ffnen1Click(Sender: TObject);
+    procedure btnOeffnenClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure btnLoeschenClick(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -69,13 +79,26 @@ end;
 
 {$ENDREGION}
 
+{$REGION '< Buttons Events >'}
 procedure TForm1.Button1Click(Sender: TObject);
 var
   I: Integer;
 begin
-  for item in ImageList1. do
+
 
 end;
+
+procedure TForm1.btnLoeschenClick(Sender: TObject);
+begin
+  if lvCountries.SelCount <> 0 then
+    lvCountries.DeleteSelected;
+end;
+
+procedure TForm1.btnOeffnenClick(Sender: TObject);
+begin
+  FManager.Prepare;
+end;
+{$ENDREGION}
 
 procedure TForm1.CreateColumns;
 var
@@ -97,10 +120,7 @@ begin
   newCol.Width := 140;
 end;
 
-procedure TForm1.ffnen1Click(Sender: TObject);
-begin
-  FManager.Prepare;
-end;
+
 
 procedure TForm1.AddItemToList(aImageIndex: integer;
   aCountryName, aComment: string);
