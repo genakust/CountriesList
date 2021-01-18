@@ -42,7 +42,7 @@ var
   outPutList: TStringList;
 begin
   dlg := TMyDialog.Create;
-  fileName:= dlg.GetFileNameFromDialog;
+  fileName:= dlg.GetTextFileNameFromDialog;
   if fileName <> '' then
   begin
     AssignFile(tf, fileName);

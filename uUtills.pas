@@ -9,7 +9,7 @@ type
 
   IGetFileName = interface
     ['{A75709F5-FE06-4B78-A20A-65317CA8C5B7}']
-    function GetFileNameFromDialog: string;
+    function GetTextFileNameFromDialog: string;
     function GetImageNameFromFile: string;
   end;
 
@@ -24,7 +24,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function GetFileNameFromDialog: string;
+    function GetTextFileNameFromDialog: string;
     function GetImageNameFromFile: string;
   end;
 
@@ -60,7 +60,7 @@ begin
   inherited;
 end;
 
-function TMyDialog.GetFileNameFromDialog: string;
+function TMyDialog.GetTextFileNameFromDialog: string;
 var
   fileName: string;
 begin
