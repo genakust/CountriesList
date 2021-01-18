@@ -128,7 +128,7 @@ object Form1: TForm1
           Height = 114
           Align = alLeft
           ExplicitLeft = 3
-          ExplicitTop = 138
+          ExplicitTop = 131
         end
         object edtCountryName: TEdit
           Left = 2
@@ -164,6 +164,7 @@ object Form1: TForm1
           Align = alCustom
           Caption = '...'
           TabOrder = 2
+          OnClick = btnLoadImageClick
         end
       end
     end
@@ -596,5 +597,9 @@ object Form1: TForm1
   object imglFlags: TImageList
     Left = 424
     Top = 352
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    Left = 461
+    Top = 194
   end
 end

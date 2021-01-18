@@ -10,7 +10,8 @@ uses
   uItem, Vcl.Bind.GenData, Data.Bind.ObjectScope, Data.Bind.Components,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
   Vcl.Bind.DBEngExt,
-  uManager, Vcl.Menus;
+  uManager, Vcl.Menus, Vcl.ExtDlgs,
+  pngimage, uUtills;
 
 type
   TForm1 = class(TForm)
@@ -35,12 +36,14 @@ type
     imgFlag: TImage;
     btnLoadImage: TButton;
     lschen1: TMenuItem;
+    OpenPictureDialog1: TOpenPictureDialog;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnOeffnenClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
+    procedure btnLoadImageClick(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -78,14 +81,41 @@ begin
 end;
 
 {$ENDREGION}
-
 {$REGION '< Buttons Events >'}
+
 procedure TForm1.Button1Click(Sender: TObject);
-var
-  I: Integer;
+var // for test only!!!
+  I: integer;
 begin
 
+end;
 
+procedure TForm1.btnLoadImageClick(Sender: TObject);
+var
+  openFileDlg: IGetFileName;
+  fileName: string;
+  Stream: TMemoryStream;
+  Image: TPngImage;
+begin
+  Stream := TMemoryStream.Create;
+  try
+    Image := TPngImage.Create;
+    try
+      openFileDlg := TMyDialog.Create;
+      fileName := openFileDlg.GetImageNameFromFile;
+      if not(fileName = EmptyStr) then
+      begin
+        Stream.LoadFromFile(fileName);
+        Stream.Position := 0;
+        Image.LoadFromStream(Stream);
+        imgFlag.Picture.Graphic := Image;
+      end;
+    finally
+      Image.Free;
+    end;
+  finally
+    Stream.Free;
+  end;
 end;
 
 procedure TForm1.btnLoeschenClick(Sender: TObject);
@@ -120,18 +150,16 @@ begin
   newCol.Width := 140;
 end;
 
-
-
 procedure TForm1.AddItemToList(aImageIndex: integer;
   aCountryName, aComment: string);
 var
   newItem: TListItem;
-  i: integer;
+  I: integer;
 begin
   lvCountries.Items.BeginUpdate;
   try
     newItem := lvCountries.Items.Add;
-    for i := 0 to 2 do
+    for I := 0 to 2 do
       newItem.SubItems.Add('');
     newItem.ImageIndex := aImageIndex;
     newItem.SubItems[0] := aCountryName;

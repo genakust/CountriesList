@@ -10,6 +10,7 @@ type
   IGetFileName = interface
     ['{A75709F5-FE06-4B78-A20A-65317CA8C5B7}']
     function GetFileNameFromDialog: string;
+    function GetImageNameFromFile: string;
   end;
 
   TMyUtills = class
@@ -24,6 +25,7 @@ type
     constructor Create;
     destructor Destroy; override;
     function GetFileNameFromDialog: string;
+    function GetImageNameFromFile: string;
   end;
 
 implementation
@@ -48,7 +50,6 @@ begin
 
   FDlg := TOpenDialog.Create(nil);
   FDlg.InitialDir := 'C:\';
-  FDlg.Filter := 'Text files (*.txt)|*.TXT';
 end;
 
 destructor TMyDialog.Destroy;
@@ -64,12 +65,27 @@ var
   fileName: string;
 begin
   fileName := EmptyStr;
+  FDlg.Filter := 'Text files (*.txt)|*.TXT';
   if FDlg.Execute then
   begin
     fileName := FDlg.fileName;
   end;
   result := fileName;
 end;
+
+function TMyDialog.GetImageNameFromFile: string;
+var
+  fileName: string;
+begin
+  fileName := EmptyStr;
+  FDlg.Filter := 'All files (*.*)|*.*';
+  if FDlg.Execute then
+  begin
+    fileName := FDlg.fileName;
+  end;
+  result := fileName;
+end;
+
 {$ENDREGION}
 
 end.
