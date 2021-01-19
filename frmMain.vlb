@@ -13,13 +13,13 @@ Coordinates=430,50,74,51
 [lvCountries]
 Coordinates=10,10,97,177
 
-[Button1]
-Coordinates=620,50,53,51
-
 [panRight]
 Coordinates=10,232,58,51
 
 []
 Coordinates=162,232,58,33
 Visible=True
+
+[btnTest]
+Coordinates=620,50,53,51
 

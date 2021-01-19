@@ -20,14 +20,13 @@ type
     panRight: TPanel;
     Splitter1: TSplitter;
     lvCountries: TListView;
-    Button1: TButton;
+    btnTest: TButton;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     Datei1: TMenuItem;
     Bearbeiten1: TMenuItem;
     ffnen1: TMenuItem;
     imglFlags: TImageList;
-    GroupBox1: TGroupBox;
     edtCountryName: TEdit;
     labCountryName: TLabel;
     labComment: TLabel;
@@ -36,12 +35,15 @@ type
     imgFlag: TImage;
     btnLoadImage: TButton;
     lschen1: TMenuItem;
-    OpenPictureDialog1: TOpenPictureDialog;
+    btnAddItemToList: TButton;
+    panNewItem: TPanel;
+    Label1: TLabel;
+    panNewImage: TPanel;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnOeffnenClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnTestClick(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
   private
@@ -83,7 +85,7 @@ end;
 {$ENDREGION}
 {$REGION '< Buttons Events >'}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.btnTestClick(Sender: TObject);
 var // for test only!!!
   I: integer;
 begin
