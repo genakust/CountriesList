@@ -16,38 +16,25 @@ uses
 type
   TForm1 = class(TForm)
     panForm: TPanel;
-    panListView: TPanel;
-    panRight: TPanel;
-    Splitter1: TSplitter;
-    lvCountries: TListView;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     Datei1: TMenuItem;
     Bearbeiten1: TMenuItem;
     ffnen1: TMenuItem;
     imglFlags: TImageList;
-    edtCountryName: TEdit;
-    labCountryName: TLabel;
-    labComment: TLabel;
-    edtComment: TEdit;
-    labFlag: TLabel;
-    imgNewFlag: TImage;
-    btnLoadImage: TButton;
     lschen1: TMenuItem;
     btnAddItemToList: TButton;
-    panNewItem: TPanel;
-    Label1: TLabel;
-    panNewImage: TPanel;
+    N1: TMenuItem;
+    neuerEintrag1: TMenuItem;
+    panListView: TPanel;
+    lvCountries: TListView;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnOeffnenClick(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
-    /// <summary>
-    /// add a new flag
-    /// </summary>
-    procedure btnLoadImageClick(Sender: TObject);
     procedure btnAddItemToListClick(Sender: TObject);
+    procedure neuerEintragClick(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -63,7 +50,7 @@ var
 implementation
 
 uses
-  uFileController;
+  uFileController, frmNewItem;
 
 {$R *.dfm}
 {$REGION '< Form Create/Show and Co. >'}
@@ -89,34 +76,36 @@ end;
 
 {$ENDREGION}
 {$REGION '< Buttons Events >'}
+procedure TForm1.neuerEintragClick(Sender: TObject);
+begin
+  with TfrmPrepareNewItem.Create(nil) do
+    try
+      ShowModal;
+    finally
+      Free;
+    end;
+end;
 
 procedure TForm1.btnAddItemToListClick(Sender: TObject);
 var
   index: integer;
   bmp: TBitmap;
   stream: TMemoryStream;
+  pngImg: TPngImage;
 begin
-  
-end;
-
-procedure TForm1.btnLoadImageClick(Sender: TObject);
-var
-  openFileDlg: IGetFileName;
-  fileName: string;
-  image: TPngImage;
-begin
-  // find an image
-  openFileDlg := TMyDialog.Create;
-  fileName := openFileDlg.GetImageNameFromFile;
-  if not(fileName = EmptyStr) then
-  begin
+  pngImg := TPngImage.Create;
+  try
+    pngImg.LoadFromFile('D:\Dokumente\DelphiAufgabe\flag_andorra.png');
+    bmp := TBitmap.Create;
     try
-      // load an image from file
-      image := TFileController.GetImageFromFile(fileName);
-      imgNewFlag.Picture.Graphic := image;
+      pngImg.AssignTo(bmp);
+      index := imglFlags.Add(bmp, nil);
+      AddItemToList(index, 'name', 'comment');
     finally
-      image.Free;
+      bmp.Free;
     end;
+  finally
+    pngImg.Free;
   end;
 end;
 

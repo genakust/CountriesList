@@ -6,7 +6,8 @@ uses
   uItem in 'uItem.pas',
   uManager in 'uManager.pas',
   uFileController in 'uFileController.pas',
-  uUtills in 'uUtills.pas';
+  uUtills in 'uUtills.pas',
+  frmNewItem in 'frmNewItem.pas' {frmPrepareNewItem};
 
 {$R *.res}
 
@@ -14,5 +15,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmPrepareNewItem, frmPrepareNewItem);
   Application.Run;
 end.

@@ -1,22 +1,10 @@
 ﻿[ImageList1]
 Coordinates=316,78,68,33
 
-[Splitter1]
-Coordinates=239,232,55,33
-
 [panForm]
 Coordinates=86,232,58,51
 
-[panListView]
-Coordinates=430,50,74,51
-
-[lvCountries]
-Coordinates=10,10,97,177
-
-[panRight]
-Coordinates=10,232,58,51
-
 []
-Coordinates=620,50,53,51
+Coordinates=239,232,55,33
 Visible=True
 
