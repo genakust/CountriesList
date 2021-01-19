@@ -3,7 +3,7 @@ unit uFileController;
 interface
 
 uses
-  System.Classes, uUtills, uItem;
+  System.Classes, uUtills, uItem, pngimage;
 
 type
   TFileController = class
@@ -12,8 +12,18 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    /// <summary>
+    /// open and read a text file with countries
+    /// </summary>
     procedure OpenAndReadFile;
     function ReadItemsFromFile(aFileName: string): IGetItems;
+    /// <summary>
+    /// load an image from file
+    /// </summary>
+    /// <param name="aFileName">
+    /// file name
+    /// </param>
+    class function GetImageFromFile(aFileName: string): TPngImage;
   end;
 
 implementation
@@ -34,6 +44,21 @@ begin
   inherited;
 end;
 
+class function TFileController.GetImageFromFile(aFileName: string): TPngImage;
+var
+  stream: TMemoryStream;
+begin
+  stream := TMemoryStream.Create;
+  try
+    result := TPngImage.Create;
+    stream.LoadFromFile(aFileName);
+    stream.Position := 0;
+    result.LoadFromStream(stream);
+  finally
+    stream.Free;
+  end;
+end;
+
 procedure TFileController.OpenAndReadFile;
 var
   dlg: IGetFileName;
@@ -42,7 +67,7 @@ var
   outPutList: TStringList;
 begin
   dlg := TMyDialog.Create;
-  fileName:= dlg.GetTextFileNameFromDialog;
+  fileName := dlg.GetTextFileNameFromDialog;
   if fileName <> '' then
   begin
     AssignFile(tf, fileName);

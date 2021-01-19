@@ -67,22 +67,13 @@ object Form1: TForm1
       ExplicitTop = -39
       ExplicitWidth = 296
       ExplicitHeight = 423
-      object btnTest: TButton
-        Left = 184
-        Top = 384
-        Width = 75
-        Height = 25
-        Caption = 'btnTest'
-        TabOrder = 0
-        OnClick = btnTestClick
-      end
       object panNewItem: TPanel
         Left = 1
         Top = 1
         Width = 322
         Height = 216
         Align = alTop
-        TabOrder = 1
+        TabOrder = 0
         ExplicitWidth = 294
         object labCountryName: TLabel
           Left = 1
@@ -168,9 +159,7 @@ object Form1: TForm1
           ParentFont = False
           TabOrder = 0
           Text = 'Landesname eingeben'
-          ExplicitLeft = 177
-          ExplicitTop = 80
-          ExplicitWidth = 103
+          ExplicitTop = 36
         end
         object edtComment: TEdit
           Left = 1
@@ -199,13 +188,13 @@ object Form1: TForm1
           Align = alTop
           TabOrder = 2
           ExplicitWidth = 292
-          object imgFlag: TImage
+          object imgNewFlag: TImage
             Left = 1
             Top = 1
             Width = 103
             Height = 46
             Align = alLeft
-            ExplicitTop = 6
+            ExplicitLeft = 0
           end
           object btnLoadImage: TButton
             Left = 104
@@ -225,7 +214,7 @@ object Form1: TForm1
           end
         end
         object btnAddItemToList: TButton
-          Left = 1
+          Left = 2
           Top = 166
           Width = 121
           Height = 40
@@ -238,6 +227,7 @@ object Form1: TForm1
           Font.Style = []
           ParentFont = False
           TabOrder = 3
+          OnClick = btnAddItemToListClick
         end
       end
     end

@@ -20,7 +20,6 @@ type
     panRight: TPanel;
     Splitter1: TSplitter;
     lvCountries: TListView;
-    btnTest: TButton;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     Datei1: TMenuItem;
@@ -32,7 +31,7 @@ type
     labComment: TLabel;
     edtComment: TEdit;
     labFlag: TLabel;
-    imgFlag: TImage;
+    imgNewFlag: TImage;
     btnLoadImage: TButton;
     lschen1: TMenuItem;
     btnAddItemToList: TButton;
@@ -43,9 +42,12 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnOeffnenClick(Sender: TObject);
-    procedure btnTestClick(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
+    /// <summary>
+    /// add a new flag
+    /// </summary>
     procedure btnLoadImageClick(Sender: TObject);
+    procedure btnAddItemToListClick(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -59,6 +61,9 @@ var
   Form1: TForm1;
 
 implementation
+
+uses
+  uFileController;
 
 {$R *.dfm}
 {$REGION '< Form Create/Show and Co. >'}
@@ -85,38 +90,33 @@ end;
 {$ENDREGION}
 {$REGION '< Buttons Events >'}
 
-procedure TForm1.btnTestClick(Sender: TObject);
-var // for test only!!!
-  I: integer;
+procedure TForm1.btnAddItemToListClick(Sender: TObject);
+var
+  index: integer;
+  bmp: TBitmap;
+  stream: TMemoryStream;
 begin
-
+  
 end;
 
 procedure TForm1.btnLoadImageClick(Sender: TObject);
 var
   openFileDlg: IGetFileName;
   fileName: string;
-  Stream: TMemoryStream;
-  Image: TPngImage;
+  image: TPngImage;
 begin
-  Stream := TMemoryStream.Create;
-  try
-    Image := TPngImage.Create;
+  // find an image
+  openFileDlg := TMyDialog.Create;
+  fileName := openFileDlg.GetImageNameFromFile;
+  if not(fileName = EmptyStr) then
+  begin
     try
-      openFileDlg := TMyDialog.Create;
-      fileName := openFileDlg.GetImageNameFromFile;
-      if not(fileName = EmptyStr) then
-      begin
-        Stream.LoadFromFile(fileName);
-        Stream.Position := 0;
-        Image.LoadFromStream(Stream);
-        imgFlag.Picture.Graphic := Image;
-      end;
+      // load an image from file
+      image := TFileController.GetImageFromFile(fileName);
+      imgNewFlag.Picture.Graphic := image;
     finally
-      Image.Free;
+      image.Free;
     end;
-  finally
-    Stream.Free;
   end;
 end;
 
