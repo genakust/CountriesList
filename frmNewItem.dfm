@@ -2,8 +2,8 @@ object frmPrepareNewItem: TfrmPrepareNewItem
   Left = 0
   Top = 0
   Caption = 'Neuer Eintrag'
-  ClientHeight = 366
-  ClientWidth = 482
+  ClientHeight = 333
+  ClientWidth = 316
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,13 +16,12 @@ object frmPrepareNewItem: TfrmPrepareNewItem
   object panNewItem: TPanel
     Left = 0
     Top = 0
-    Width = 482
-    Height = 366
+    Width = 316
+    Height = 333
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 22
-    ExplicitWidth = 513
-    ExplicitHeight = 350
+    ExplicitWidth = 482
+    ExplicitHeight = 366
     object labCountryName: TLabel
       Left = 9
       Top = 28
@@ -69,8 +68,8 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     object imgNewFlag: TImage
       Left = 9
       Top = 181
-      Width = 81
-      Height = 73
+      Width = 64
+      Height = 52
       Align = alCustom
     end
     object edtCountryName: TEdit
@@ -107,18 +106,18 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     end
     object panBottom: TPanel
       Left = 1
-      Top = 312
-      Width = 480
-      Height = 53
+      Top = 295
+      Width = 314
+      Height = 37
       Align = alBottom
       TabOrder = 2
-      ExplicitTop = 296
-      ExplicitWidth = 511
+      ExplicitTop = 328
+      ExplicitWidth = 480
       object btnAddItemToList: TButton
-        Left = 321
+        Left = 155
         Top = 1
         Width = 83
-        Height = 51
+        Height = 35
         Align = alRight
         Caption = 'hinzuf'#252'egen'
         Font.Charset = DEFAULT_CHARSET
@@ -126,30 +125,31 @@ object frmPrepareNewItem: TfrmPrepareNewItem
         Font.Height = -13
         Font.Name = 'Tahoma'
         Font.Style = []
+        ModalResult = 1
         ParentFont = False
         TabOrder = 0
         OnClick = btnAddItemToListClick
-        ExplicitLeft = 352
+        ExplicitLeft = 321
+        ExplicitHeight = 51
       end
       object btnCancel: TButton
-        Left = 404
+        Left = 238
         Top = 1
         Width = 75
-        Height = 51
+        Height = 35
         Align = alRight
         Caption = 'Abbrechen'
+        ModalResult = 2
         TabOrder = 1
         OnClick = btnCancelClick
-        ExplicitLeft = 437
-        ExplicitTop = 161
-        ExplicitHeight = 151
+        ExplicitLeft = 410
       end
     end
     object btnLoadImage: TButton
       Left = 9
-      Top = 260
-      Width = 81
-      Height = 46
+      Top = 239
+      Width = 64
+      Height = 42
       Align = alCustom
       Caption = 'Flag laden'
       Font.Charset = DEFAULT_CHARSET

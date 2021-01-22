@@ -1,10 +1,7 @@
 ﻿[ImageList1]
 Coordinates=316,78,68,33
 
-[panForm]
-Coordinates=86,232,58,51
-
 []
-Coordinates=239,232,55,33
+Coordinates=86,232,58,51
 Visible=True
 

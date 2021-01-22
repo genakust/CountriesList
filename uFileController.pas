@@ -23,6 +23,9 @@ type
     /// <param name="aFileName">
     /// file name
     /// </param>
+    /// <remarks>
+    /// the returned image should be deleted from the memory
+    /// </remarks>
     class function GetImageFromFile(aFileName: string): TPngImage;
   end;
 

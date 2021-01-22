@@ -15,7 +15,6 @@ uses
 
 type
   TForm1 = class(TForm)
-    panForm: TPanel;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
     Datei1: TMenuItem;
@@ -23,7 +22,6 @@ type
     ffnen1: TMenuItem;
     imglFlags: TImageList;
     lschen1: TMenuItem;
-    btnAddItemToList: TButton;
     N1: TMenuItem;
     neuerEintrag1: TMenuItem;
     panListView: TPanel;
@@ -33,13 +31,13 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure btnOeffnenClick(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
-    procedure btnAddItemToListClick(Sender: TObject);
     procedure neuerEintragClick(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
     procedure AddItemToList(aImageIndex: integer;
       aCountryName, aComment: string);
+    function AddImageToImgList(aFileName: string): integer;
   public
     { Public-Deklarationen }
   end;
@@ -76,36 +74,29 @@ end;
 
 {$ENDREGION}
 {$REGION '< Buttons Events >'}
-procedure TForm1.neuerEintragClick(Sender: TObject);
-begin
-  with TfrmPrepareNewItem.Create(nil) do
-    try
-      ShowModal;
-    finally
-      Free;
-    end;
-end;
 
-procedure TForm1.btnAddItemToListClick(Sender: TObject);
+procedure TForm1.neuerEintragClick(Sender: TObject);
 var
-  index: integer;
-  bmp: TBitmap;
-  stream: TMemoryStream;
-  pngImg: TPngImage;
+  frmNewItem: TfrmPrepareNewItem;
+  newName, newComment: string;
+  index: Integer;
 begin
-  pngImg := TPngImage.Create;
+  // Showing the form for the input of new data
+  frmNewItem := TfrmPrepareNewItem.Create(nil);
   try
-    pngImg.LoadFromFile('D:\Dokumente\DelphiAufgabe\flag_andorra.png');
-    bmp := TBitmap.Create;
-    try
-      pngImg.AssignTo(bmp);
-      index := imglFlags.Add(bmp, nil);
-      AddItemToList(index, 'name', 'comment');
-    finally
-      bmp.Free;
+    frmNewItem.ShowModal;
+    if frmNewItem.ModalResult = mrOk then
+    begin
+      // receive the new data
+      newName := frmNewItem.CountryName;
+      newComment := frmNewItem.Comment;
+      // try to add a new image to the imagelist
+      index:= AddImageToImgList(frmNewItem.ImageFileName);
+      // finally add a new item
+      AddItemToList(index,newName,newComment);
     end;
   finally
-    pngImg.Free;
+    frmNewItem.Free;
   end;
 end;
 
@@ -141,6 +132,32 @@ begin
   newCol.Width := 140;
 end;
 
+{$REGION '< New Item >'}
+
+function TForm1.AddImageToImgList(aFileName: string): integer;
+var
+  bmp: TBitmap;
+  stream: TMemoryStream;
+  pngImg: TPngImage;
+begin
+  Result := -1;
+  if not FileExists(aFileName) then
+    Exit;
+  pngImg := TPngImage.Create;
+  try
+    pngImg.LoadFromFile(aFileName);
+    bmp := TBitmap.Create;
+    try
+      pngImg.AssignTo(bmp);
+      Result := imglFlags.Add(bmp, nil);
+    finally
+      bmp.Free;
+    end;
+  finally
+    pngImg.Free;
+  end;
+end;
+
 procedure TForm1.AddItemToList(aImageIndex: integer;
   aCountryName, aComment: string);
 var
@@ -159,6 +176,7 @@ begin
     lvCountries.Items.EndUpdate;
   end;
 end;
+{$ENDREGION}
 
 initialization
 

@@ -17,52 +17,31 @@ object Form1: TForm1
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object panForm: TPanel
+  object panListView: TPanel
     Left = 0
     Top = 0
     Width = 713
     Height = 428
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 2
-    object panListView: TPanel
+    ExplicitLeft = 1
+    ExplicitTop = 1
+    ExplicitWidth = 384
+    ExplicitHeight = 426
+    object lvCountries: TListView
       Left = 1
       Top = 1
-      Width = 384
+      Width = 711
       Height = 426
-      Align = alLeft
+      Align = alClient
+      Columns = <>
+      LargeImages = ImageList1
+      SmallImages = ImageList1
       TabOrder = 0
-      ExplicitLeft = -5
-      object lvCountries: TListView
-        Left = 1
-        Top = 1
-        Width = 382
-        Height = 424
-        Align = alClient
-        Columns = <>
-        LargeImages = ImageList1
-        SmallImages = ImageList1
-        TabOrder = 0
-        ViewStyle = vsReport
-        ExplicitTop = 2
-      end
+      ViewStyle = vsReport
+      ExplicitWidth = 383
+      ExplicitHeight = 424
     end
-  end
-  object btnAddItemToList: TButton
-    Left = 578
-    Top = 262
-    Width = 121
-    Height = 40
-    Align = alCustom
-    Caption = '<<- hinzuf'#252'egen'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    OnClick = btnAddItemToListClick
   end
   object ImageList1: TImageList
     Left = 492

@@ -3,7 +3,8 @@ unit frmNewItem;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   pngimage, uUtills, uFileController;
 
@@ -24,9 +25,15 @@ type
     procedure btnAddItemToListClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
   private
-    { Private-Deklarationen }
+    FFileName: string;
+    { Properties }
+    function GetCountryName: string;
+    function GetComment: string;
   public
-    { Public-Deklarationen }
+    constructor Create(aOwner: TComponent); override;
+    property CountryName: string read GetCountryName;
+    property Comment: string read GetComment;
+    property ImageFileName: string read FFileName;
   end;
 
 var
@@ -38,7 +45,7 @@ implementation
 
 procedure TfrmPrepareNewItem.btnAddItemToListClick(Sender: TObject);
 begin
-  Self.Close;
+  Self.ModalResult := mrOk;
 end;
 
 procedure TfrmPrepareNewItem.btnCancelClick(Sender: TObject);
@@ -49,22 +56,42 @@ end;
 procedure TfrmPrepareNewItem.btnLoadImageClick(Sender: TObject);
 var
   openFileDlg: IGetFileName;
-  fileName: string;
   image: TPngImage;
 begin
   // find an image
   openFileDlg := TMyDialog.Create;
-  fileName := openFileDlg.GetImageNameFromFile;
-  if not(fileName = EmptyStr) then
+  FFileName := openFileDlg.GetImageNameFromFile;
+  if not(FFileName = EmptyStr) then
   begin
     try
       // load an image from file
-      image := TFileController.GetImageFromFile(fileName);
+      image := TFileController.GetImageFromFile(FFileName);
       imgNewFlag.Picture.Graphic := image;
     finally
       image.Free;
     end;
   end;
 end;
+
+{$REGION '< Create and Co. >'}
+
+constructor TfrmPrepareNewItem.Create(aOwner: TComponent);
+begin
+  inherited Create(aOwner);
+  FFileName := EmptyStr;
+end;
+{$ENDREGION}
+{$REGION '< Properties >'}
+
+function TfrmPrepareNewItem.GetComment: string;
+begin
+  Result := edtComment.Text;
+end;
+
+function TfrmPrepareNewItem.GetCountryName: string;
+begin
+  Result := edtCountryName.Text;
+end;
+{$ENDREGION}
 
 end.
