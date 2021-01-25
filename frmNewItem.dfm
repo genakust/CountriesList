@@ -20,8 +20,6 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     Height = 333
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 482
-    ExplicitHeight = 366
     object labCountryName: TLabel
       Left = 9
       Top = 28
@@ -39,7 +37,7 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     end
     object labComment: TLabel
       Left = 9
-      Top = 87
+      Top = 92
       Width = 82
       Height = 18
       Align = alCustom
@@ -53,11 +51,11 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     end
     object labFlag: TLabel
       Left = 9
-      Top = 157
-      Width = 31
+      Top = 162
+      Width = 103
       Height = 18
       Align = alCustom
-      Caption = 'Flag:'
+      Caption = 'Flag ausw'#228'hlen:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -66,15 +64,15 @@ object frmPrepareNewItem: TfrmPrepareNewItem
       ParentFont = False
     end
     object imgNewFlag: TImage
-      Left = 9
-      Top = 181
-      Width = 64
-      Height = 52
+      Left = 119
+      Top = 162
+      Width = 31
+      Height = 24
       Align = alCustom
     end
     object edtCountryName: TEdit
       Left = 9
-      Top = 57
+      Top = 60
       Width = 256
       Height = 24
       Margins.Top = 10
@@ -90,7 +88,7 @@ object frmPrepareNewItem: TfrmPrepareNewItem
     end
     object edtComment: TEdit
       Left = 9
-      Top = 116
+      Top = 124
       Width = 256
       Height = 24
       Margins.Top = 10
@@ -111,8 +109,6 @@ object frmPrepareNewItem: TfrmPrepareNewItem
       Height = 37
       Align = alBottom
       TabOrder = 2
-      ExplicitTop = 328
-      ExplicitWidth = 480
       object btnAddItemToList: TButton
         Left = 155
         Top = 1
@@ -129,8 +125,6 @@ object frmPrepareNewItem: TfrmPrepareNewItem
         ParentFont = False
         TabOrder = 0
         OnClick = btnAddItemToListClick
-        ExplicitLeft = 321
-        ExplicitHeight = 51
       end
       object btnCancel: TButton
         Left = 238
@@ -142,16 +136,15 @@ object frmPrepareNewItem: TfrmPrepareNewItem
         ModalResult = 2
         TabOrder = 1
         OnClick = btnCancelClick
-        ExplicitLeft = 410
       end
     end
     object btnLoadImage: TButton
-      Left = 9
-      Top = 239
-      Width = 64
-      Height = 42
+      Left = 156
+      Top = 160
+      Width = 31
+      Height = 26
       Align = alCustom
-      Caption = 'Flag laden'
+      Caption = '...'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

@@ -15,8 +15,7 @@ type
     /// <summary>
     /// open and read a text file with countries
     /// </summary>
-    procedure OpenAndReadFile;
-    function ReadItemsFromFile(aFileName: string): IGetItems;
+    function ReadItemsFromFile(aFileName: string): IGetItems<TMyItem>;
     /// <summary>
     /// load an image from file
     /// </summary>
@@ -62,34 +61,31 @@ begin
   end;
 end;
 
-procedure TFileController.OpenAndReadFile;
+function TFileController.ReadItemsFromFile(aFileName: string): IGetItems<TMyItem>;
 var
-  dlg: IGetFileName;
   tf: TextFile;
-  line, fileName: string;
+  line: string;
   outPutList: TStringList;
+  newItem: TMyItem;
 begin
-  dlg := TMyDialog.Create;
-  fileName := dlg.GetTextFileNameFromDialog;
-  if fileName <> '' then
+  Result:= TMyItems<TMyItem>.Create;
+
+  if aFileName <> '' then
   begin
-    AssignFile(tf, fileName);
+    AssignFile(tf, aFileName);
     Reset(tf);
     repeat
       readln(tf, line);
       outPutList := TStringList.Create;
       try
         TMyUtills.Split(cDelimiter, line, outPutList);
+        newItem:= TMyItem.Create(outPutList[0], outPutList[1], outPutList[2]);
+        Result.Add(newItem);
       finally
         outPutList.Free;
       end;
     until (Eof(tf));
   end;
-end;
-
-function TFileController.ReadItemsFromFile(aFileName: string): IGetItems;
-begin
-
 end;
 
 end.

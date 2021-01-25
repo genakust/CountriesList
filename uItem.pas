@@ -1,18 +1,23 @@
 unit uItem;
 
 interface
+
 uses
   System.SysUtils, System.Generics.Collections;
+
 type
 
-  IGetItems = interface
+  IGetItems<T: class> = interface
     ['{6AD33FDC-080E-4390-9D1D-F693E8B424FF}']
-
+    function GetItemsList: TObjectList<T>;
+    procedure SetItemsList(const Value: TObjectList<T>);
+    property ItemsList: TObjectList<T> read GetItemsList write SetItemsList;
+    procedure Add(aItem: T);
   end;
 
-  ///<summary>
+  /// <summary>
   /// ein ListView Item
-  ///</summary>
+  /// </summary>
   TMyItem = class
   private
     FFlagName: string;
@@ -25,10 +30,10 @@ type
     property FlagName: string read FFlagName write FFlagName;
   end;
 
-  ///<summary>
+  /// <summary>
   /// eine Liste der Items
-  ///</summary>
-  TMyItems<T: class> = class
+  /// </summary>
+  TMyItems<T: class> = class(TInterfacedObject, IGetItems<T>)
   private
     FItemsList: TObjectList<T>;
     function GetItemsList: TObjectList<T>;
@@ -65,7 +70,6 @@ begin
   inherited;
 end;
 {$ENDREGION}
-
 {$REGION '< TMyItems<TMyItem> >'}
 
 procedure TMyItems<T>.Add(aItem: T);
@@ -76,7 +80,8 @@ end;
 constructor TMyItems<T>.Create;
 begin
   inherited;
-   FItemsList:= TObjectList<T>.Create;
+  FItemsList := TObjectList<T>.Create;
+  FItemsList.OwnsObjects:= true;
 end;
 
 destructor TMyItems<T>.Destroy;
@@ -91,12 +96,12 @@ end;
 
 function TMyItems<T>.GetItemsList: TObjectList<T>;
 begin
-  result:= FItemsList;
+  result := FItemsList;
 end;
 
 procedure TMyItems<T>.SetItemsList(const Value: TObjectList<T>);
 begin
-   FItemsList:= Value;
+  FItemsList := Value;
 end;
 
 {$ENDREGION}

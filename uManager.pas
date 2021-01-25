@@ -3,7 +3,7 @@ unit uManager;
 interface
 
 uses
-  uFileController;
+  uFileController, uUtills;
 
 type
   TMyManager = class
@@ -32,8 +32,13 @@ begin
 end;
 
 procedure TMyManager.Prepare;
+var
+  dlg: IGetFileName;
+  fileName: string;
 begin
-  FFileController.OpenAndReadFile;
+  dlg := TMyDialog.Create;
+  fileName := dlg.GetTextFileNameFromDialog;
+  FFileController.ReadItemsFromFile(fileName);
 end;
 
 end.
