@@ -16,7 +16,7 @@ type
   end;
 
   /// <summary>
-  /// ein ListView Item
+  /// ein Item aus der Datei
   /// </summary>
   TMyItem = class
   private
