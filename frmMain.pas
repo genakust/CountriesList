@@ -69,7 +69,7 @@ end;
 procedure TForm1.FormShow(Sender: TObject);
 begin
   CreateColumns;
-  AddItemToList(0, 'country1', 'comment1');
+  // AddItemToList(0, 'country1', 'comment1');
 end;
 
 {$ENDREGION}
@@ -79,7 +79,7 @@ procedure TForm1.neuerEintragClick(Sender: TObject);
 var
   frmNewItem: TfrmPrepareNewItem;
   newName, newComment: string;
-  index: Integer;
+  index: integer;
 begin
   // Showing the form for the input of new data
   frmNewItem := TfrmPrepareNewItem.Create(nil);
@@ -91,9 +91,9 @@ begin
       newName := frmNewItem.CountryName;
       newComment := frmNewItem.Comment;
       // try to add a new image to the imagelist
-      index:= AddImageToImgList(frmNewItem.ImageFileName);
+      index := AddImageToImgList(frmNewItem.ImageFileName);
       // finally add a new item
-      AddItemToList(index,newName,newComment);
+      AddItemToList(index, newName, newComment);
     end;
   finally
     frmNewItem.Free;
@@ -107,8 +107,24 @@ begin
 end;
 
 procedure TForm1.btnOeffnenClick(Sender: TObject);
+const
+  cPNG = 'png';
+var
+  items: IGetItems<TMyItem>;
+  item: TMyItem;
+  index: Integer;
+  fileName: string;
 begin
-  FManager.Prepare;
+  items := FManager.Prepare;
+  for item in items.ItemsList do
+  begin
+    // set the file name
+    fileName:= Format(FManager.Filename + '%s.%s',[item.FlagName,cPNG]);
+    // try to add a new image to the imagelist
+    index := AddImageToImgList(fileName);
+    // finally add a new item
+    AddItemToList(index, item.Country, item.Comment);
+  end;
 end;
 {$ENDREGION}
 
@@ -164,16 +180,16 @@ var
   newItem: TListItem;
   I: integer;
 begin
-  lvCountries.Items.BeginUpdate;
+  lvCountries.items.BeginUpdate;
   try
-    newItem := lvCountries.Items.Add;
+    newItem := lvCountries.items.Add;
     for I := 0 to 2 do
       newItem.SubItems.Add('');
     newItem.ImageIndex := aImageIndex;
     newItem.SubItems[0] := aCountryName;
     newItem.SubItems[1] := aComment;
   finally
-    lvCountries.Items.EndUpdate;
+    lvCountries.items.EndUpdate;
   end;
 end;
 {$ENDREGION}

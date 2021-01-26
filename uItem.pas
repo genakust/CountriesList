@@ -28,6 +28,8 @@ type
     constructor Create(aFlagName, aCountry, aComment: string); overload;
     destructor Destroy; override;
     property FlagName: string read FFlagName write FFlagName;
+    property Country: string read FCountry write FCountry;
+    property Comment: string read FComment write FComment;
   end;
 
   /// <summary>

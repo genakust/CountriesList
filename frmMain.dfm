@@ -24,10 +24,6 @@ object Form1: TForm1
     Height = 428
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 1
-    ExplicitTop = 1
-    ExplicitWidth = 384
-    ExplicitHeight = 426
     object lvCountries: TListView
       Left = 1
       Top = 1
@@ -39,8 +35,6 @@ object Form1: TForm1
       SmallImages = ImageList1
       TabOrder = 0
       ViewStyle = vsReport
-      ExplicitWidth = 383
-      ExplicitHeight = 424
     end
   end
   object ImageList1: TImageList

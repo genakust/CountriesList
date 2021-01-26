@@ -12,7 +12,8 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure Prepare;
+    function Prepare: IGetItems<TMyItem>;
+    property FileName: string read FFileName;
   end;
 
 implementation
@@ -36,17 +37,16 @@ begin
   inherited;
 end;
 
-procedure TMyManager.Prepare;
+function TMyManager.Prepare: IGetItems<TMyItem>;
 var
   dlg: IGetFileName;
   fileName: string;
-  items: IGetItems<TMyItem>;
 begin
   // die Textdatei auswählen
   dlg := TMyDialog.Create;
   fileName := dlg.GetTextFileNameFromDialog;
   // Items mit Inhalt füllen
-  items := FFileController.ReadItemsFromFile(fileName);
+  Result := FFileController.ReadItemsFromFile(fileName);
   // Ordner, wo die Bilder liegen
   FFileName:= ExtractFilePath(fileName);
 end;
