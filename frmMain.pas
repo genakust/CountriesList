@@ -43,6 +43,7 @@ type
     procedure AddItemToList(aImageIndex: integer;
       aCountryName, aComment: string);
     function AddImageToImgList(aFileName: string): integer;
+    procedure EnableItemDelete;
   public
     { Public-Deklarationen }
   end;
@@ -77,7 +78,6 @@ begin
 end;
 
 {$ENDREGION}
-
 {$REGION '< Collumns >'}
 
 procedure TForm1.CreateColumns;
@@ -170,15 +170,14 @@ end;
 
 procedure TForm1.ActionItemLoeschenExecute(Sender: TObject);
 begin
-    if lvCountries.SelCount <> 0 then
+  if lvCountries.SelCount <> 0 then
     lvCountries.DeleteSelected;
+  EnableItemDelete;
 end;
-
 
 procedure TForm1.ActionListViewClickExecute(Sender: TObject);
 begin
-  if lvCountries.Selected <> nil then
-    (FindComponent('loeschen') as TMenuItem).Enabled := true;
+  EnableItemDelete;
 end;
 
 {$ENDREGION}
@@ -226,6 +225,13 @@ begin
   end;
 end;
 {$ENDREGION}
+
+
+procedure TForm1.EnableItemDelete;
+begin
+  (FindComponent('loeschen') as TMenuItem).Enabled :=
+    lvCountries.Selected <> nil;
+end;
 
 initialization
 
