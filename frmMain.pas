@@ -10,7 +10,7 @@ uses
   uItem, Vcl.Bind.GenData, Data.Bind.ObjectScope, Data.Bind.Components,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
   uManager, Vcl.Menus, Vcl.ExtDlgs, uListViewSort,
-  pngimage, uUtills;
+  pngimage, uUtills, System.Actions, Vcl.ActnList;
 
 type
   TForm1 = class(TForm)
@@ -24,13 +24,17 @@ type
     neuerEintrag1: TMenuItem;
     panListView: TPanel;
     lvCountries: TListView;
+    ActionList1: TActionList;
+    ActionFileOeffnen: TAction;
+    ActionItemLoeschen: TAction;
+    ActionAddItem: TAction;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure btnOeffnenClick(Sender: TObject);
-    procedure btnLoeschenClick(Sender: TObject);
-    procedure neuerEintragClick(Sender: TObject);
     procedure lvCountriesColumnClick(Sender: TObject; Column: TListColumn);
+    procedure ActionItemLoeschenExecute(Sender: TObject);
+    procedure ActionFileOeffnenExecute(Sender: TObject);
+    procedure ActionAddItemExecute(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -71,60 +75,7 @@ begin
 end;
 
 {$ENDREGION}
-{$REGION '< Buttons Events >'}
 
-procedure TForm1.neuerEintragClick(Sender: TObject);
-var
-  frmNewItem: TfrmPrepareNewItem;
-  newName, newComment: string;
-  index: integer;
-begin
-  // Showing the form for the input of new data
-  frmNewItem := TfrmPrepareNewItem.Create(nil);
-  try
-    frmNewItem.ShowModal;
-    if frmNewItem.ModalResult = mrOk then
-    begin
-      // receive the new data
-      newName := frmNewItem.CountryName;
-      newComment := frmNewItem.Comment;
-      // try to add a new image to the imagelist
-      index := AddImageToImgList(frmNewItem.ImageFileName);
-      // finally add a new item
-      AddItemToList(index, newName, newComment);
-    end;
-  finally
-    frmNewItem.Free;
-  end;
-end;
-
-procedure TForm1.btnLoeschenClick(Sender: TObject);
-begin
-  if lvCountries.SelCount <> 0 then
-    lvCountries.DeleteSelected;
-end;
-
-procedure TForm1.btnOeffnenClick(Sender: TObject);
-const
-  cPNG = 'png';
-var
-  items: IGetItems<TMyItem>;
-  item: TMyItem;
-  index: integer;
-  fileName: string;
-begin
-  items := FManager.Prepare;
-  for item in items.ItemsList do
-  begin
-    // set the file name
-    fileName := Format(FManager.fileName + '%s.%s', [item.FlagName, cPNG]);
-    // try to add a new image to the imagelist
-    index := AddImageToImgList(fileName);
-    // finally add a new item
-    AddItemToList(index, item.Country, item.Comment);
-  end;
-end;
-{$ENDREGION}
 {$REGION '< Collumns >'}
 
 procedure TForm1.CreateColumns;
@@ -164,6 +115,61 @@ begin
 
   { Set the sort order for the column }
   LvSortOrder[Column.index] := not LvSortOrder[Column.index];
+end;
+{$ENDREGION}
+{$REGION '< Actions >'}
+
+procedure TForm1.ActionAddItemExecute(Sender: TObject);
+var
+  frmNewItem: TfrmPrepareNewItem;
+  newName, newComment: string;
+  index: integer;
+begin
+  // Showing the form for the input of new data
+  frmNewItem := TfrmPrepareNewItem.Create(nil);
+  try
+    frmNewItem.ShowModal;
+    if frmNewItem.ModalResult = mrOk then
+    begin
+      // receive the new data
+      newName := frmNewItem.CountryName;
+      newComment := frmNewItem.Comment;
+      // try to add a new image to the imagelist
+      index := AddImageToImgList(frmNewItem.ImageFileName);
+      // finally add a new item
+      AddItemToList(index, newName, newComment);
+    end;
+  finally
+    frmNewItem.Free;
+  end;
+end;
+
+procedure TForm1.ActionFileOeffnenExecute(Sender: TObject);
+const
+  cPNG = 'png';
+var
+  items: IGetItems<TMyItem>;
+  item: TMyItem;
+  index: integer;
+  fileName: string;
+begin
+  items := FManager.Prepare;
+  for item in items.ItemsList do
+  begin
+    // set the file name
+    fileName := Format(FManager.fileName + '%s.%s', [item.FlagName, cPNG]);
+    // try to add a new image to the imagelist
+    index := AddImageToImgList(fileName);
+    // finally add a new item
+    AddItemToList(index, item.Country, item.Comment);
+  end;
+
+end;
+
+procedure TForm1.ActionItemLoeschenExecute(Sender: TObject);
+begin
+    if lvCountries.SelCount <> 0 then
+    lvCountries.DeleteSelected;
 end;
 {$ENDREGION}
 {$REGION '< New Item >'}

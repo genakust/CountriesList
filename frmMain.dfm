@@ -43,27 +43,43 @@ object Form1: TForm1
     object Datei1: TMenuItem
       Caption = 'Datei'
       object ffnen1: TMenuItem
-        Caption = #214'ffnen'
-        OnClick = btnOeffnenClick
+        Action = ActionFileOeffnen
+        Caption = #246'ffnen'
       end
     end
     object Bearbeiten1: TMenuItem
       Caption = 'Bearbeiten'
       object lschen1: TMenuItem
-        Caption = 'l'#246'schen'
-        OnClick = btnLoeschenClick
+        Action = ActionItemLoeschen
+        Caption = 'item l'#246'schen'
       end
       object N1: TMenuItem
         Caption = '-'
       end
       object neuerEintrag1: TMenuItem
+        Action = ActionAddItem
         Caption = 'neuer Eintrag'
-        OnClick = neuerEintragClick
       end
     end
   end
   object imglFlags: TImageList
-    Left = 416
-    Top = 376
+    Left = 112
+    Top = 136
+  end
+  object ActionList1: TActionList
+    Left = 112
+    Top = 72
+    object ActionFileOeffnen: TAction
+      Caption = 'ActionFileOeffnen'
+      OnExecute = ActionFileOeffnenExecute
+    end
+    object ActionItemLoeschen: TAction
+      Caption = 'ActionItemLoeschen'
+      OnExecute = ActionItemLoeschenExecute
+    end
+    object ActionAddItem: TAction
+      Caption = 'ActionAddItem'
+      OnExecute = ActionAddItemExecute
+    end
   end
 end
