@@ -61,14 +61,15 @@ begin
   end;
 end;
 
-function TFileController.ReadItemsFromFile(aFileName: string): IGetItems<TMyItem>;
+function TFileController.ReadItemsFromFile(aFileName: string)
+  : IGetItems<TMyItem>;
 var
   tf: TextFile;
   line: string;
   outPutList: TStringList;
   newItem: TMyItem;
 begin
-  Result:= TMyItems<TMyItem>.Create;
+  result := TMyItems<TMyItem>.Create;
 
   if aFileName <> '' then
   begin
@@ -79,8 +80,12 @@ begin
       outPutList := TStringList.Create;
       try
         TMyUtills.Split(cDelimiter, line, outPutList);
-        newItem:= TMyItem.Create(outPutList[0], outPutList[1], outPutList[2]);
-        Result.Add(newItem);
+        if outPutList.Count >= 2 then
+        begin
+          newItem := TMyItem.Create(outPutList[0], outPutList[1],
+            outPutList[2]);
+          result.Add(newItem);
+        end;
       finally
         outPutList.Free;
       end;

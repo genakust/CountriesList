@@ -33,6 +33,12 @@ type
     constructor Create(aOwner: TComponent); override;
     property CountryName: string read GetCountryName;
     property Comment: string read GetComment;
+    /// <summary>
+    /// it gets the image file name
+    /// </summary>
+    /// <remarks>
+    /// for example: flag_spain
+    /// </remarks>
     property ImageFileName: string read FFileName;
   end;
 

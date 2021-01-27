@@ -7,7 +7,8 @@ uses
   uManager in 'uManager.pas',
   uFileController in 'uFileController.pas',
   uUtills in 'uUtills.pas',
-  frmNewItem in 'frmNewItem.pas' {frmPrepareNewItem};
+  frmNewItem in 'frmNewItem.pas' {frmPrepareNewItem},
+  uListViewSort in 'uListViewSort.pas';
 
 {$R *.res}
 

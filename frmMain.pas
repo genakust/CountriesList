@@ -9,13 +9,11 @@ uses
   Vcl.StdCtrls, System.ImageList, Vcl.ImgList, System.Rtti,
   uItem, Vcl.Bind.GenData, Data.Bind.ObjectScope, Data.Bind.Components,
   System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
-  Vcl.Bind.DBEngExt,
-  uManager, Vcl.Menus, Vcl.ExtDlgs,
+  uManager, Vcl.Menus, Vcl.ExtDlgs, uListViewSort,
   pngimage, uUtills;
 
 type
   TForm1 = class(TForm)
-    ImageList1: TImageList;
     MainMenu1: TMainMenu;
     Datei1: TMenuItem;
     Bearbeiten1: TMenuItem;
@@ -32,6 +30,7 @@ type
     procedure btnOeffnenClick(Sender: TObject);
     procedure btnLoeschenClick(Sender: TObject);
     procedure neuerEintragClick(Sender: TObject);
+    procedure lvCountriesColumnClick(Sender: TObject; Column: TListColumn);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -69,7 +68,6 @@ end;
 procedure TForm1.FormShow(Sender: TObject);
 begin
   CreateColumns;
-  // AddItemToList(0, 'country1', 'comment1');
 end;
 
 {$ENDREGION}
@@ -112,14 +110,14 @@ const
 var
   items: IGetItems<TMyItem>;
   item: TMyItem;
-  index: Integer;
+  index: integer;
   fileName: string;
 begin
   items := FManager.Prepare;
   for item in items.ItemsList do
   begin
     // set the file name
-    fileName:= Format(FManager.Filename + '%s.%s',[item.FlagName,cPNG]);
+    fileName := Format(FManager.fileName + '%s.%s', [item.FlagName, cPNG]);
     // try to add a new image to the imagelist
     index := AddImageToImgList(fileName);
     // finally add a new item
@@ -127,6 +125,7 @@ begin
   end;
 end;
 {$ENDREGION}
+{$REGION '< Collumns >'}
 
 procedure TForm1.CreateColumns;
 var
@@ -148,12 +147,30 @@ begin
   newCol.Width := 140;
 end;
 
+procedure TForm1.lvCountriesColumnClick(Sender: TObject; Column: TListColumn);
+var
+  colToSort: integer;
+begin
+  // which colum was clicked?
+  colToSort := Column.index;
+  { determine the sort style }
+  if (colToSort = 1) or (colToSort = 2) then
+    LvSortStyle := cssAlphaNum
+  else
+    LvSortStyle := cssNumeric;
+
+  { Call the CustomSort method }
+  lvCountries.CustomSort(@CustomSortProc, Column.index - 1);
+
+  { Set the sort order for the column }
+  LvSortOrder[Column.index] := not LvSortOrder[Column.index];
+end;
+{$ENDREGION}
 {$REGION '< New Item >'}
 
 function TForm1.AddImageToImgList(aFileName: string): integer;
 var
   bmp: TBitmap;
-  stream: TMemoryStream;
   pngImg: TPngImage;
 begin
   Result := -1;
