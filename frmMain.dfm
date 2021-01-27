@@ -34,6 +34,7 @@ object Form1: TForm1
       SmallImages = imglFlags
       TabOrder = 0
       ViewStyle = vsReport
+      OnClick = ActionListViewClickExecute
       OnColumnClick = lvCountriesColumnClick
     end
   end
@@ -49,9 +50,10 @@ object Form1: TForm1
     end
     object Bearbeiten1: TMenuItem
       Caption = 'Bearbeiten'
-      object lschen1: TMenuItem
+      object loeschen: TMenuItem
         Action = ActionItemLoeschen
         Caption = 'item l'#246'schen'
+        Enabled = False
       end
       object N1: TMenuItem
         Caption = '-'
@@ -80,6 +82,10 @@ object Form1: TForm1
     object ActionAddItem: TAction
       Caption = 'ActionAddItem'
       OnExecute = ActionAddItemExecute
+    end
+    object ActionListViewClick: TAction
+      Caption = 'ActionListViewClick'
+      OnExecute = ActionListViewClickExecute
     end
   end
 end

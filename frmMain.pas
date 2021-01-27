@@ -19,7 +19,7 @@ type
     Bearbeiten1: TMenuItem;
     ffnen1: TMenuItem;
     imglFlags: TImageList;
-    lschen1: TMenuItem;
+    loeschen: TMenuItem;
     N1: TMenuItem;
     neuerEintrag1: TMenuItem;
     panListView: TPanel;
@@ -28,6 +28,7 @@ type
     ActionFileOeffnen: TAction;
     ActionItemLoeschen: TAction;
     ActionAddItem: TAction;
+    ActionListViewClick: TAction;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -35,6 +36,7 @@ type
     procedure ActionItemLoeschenExecute(Sender: TObject);
     procedure ActionFileOeffnenExecute(Sender: TObject);
     procedure ActionAddItemExecute(Sender: TObject);
+    procedure ActionListViewClickExecute(Sender: TObject);
   private
     FManager: TMyManager;
     procedure CreateColumns;
@@ -171,6 +173,14 @@ begin
     if lvCountries.SelCount <> 0 then
     lvCountries.DeleteSelected;
 end;
+
+
+procedure TForm1.ActionListViewClickExecute(Sender: TObject);
+begin
+  if lvCountries.Selected <> nil then
+    (FindComponent('loeschen') as TMenuItem).Enabled := true;
+end;
+
 {$ENDREGION}
 {$REGION '< New Item >'}
 
