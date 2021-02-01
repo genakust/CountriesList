@@ -111,6 +111,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uListViewSort.pas"/>
+        <DCCReference Include="uCommand.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

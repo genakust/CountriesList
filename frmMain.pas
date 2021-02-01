@@ -165,7 +165,6 @@ begin
     // finally add a new item
     AddItemToList(index, item.Country, item.Comment);
   end;
-
 end;
 
 procedure TForm1.ActionItemLoeschenExecute(Sender: TObject);
