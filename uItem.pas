@@ -32,12 +32,6 @@ type
     property Comment: string read FComment write FComment;
   end;
 
-  ImyCommand = interface
-    ['{A9E5D472-C4F5-49F1-BBE1-EF3FCE1F831F}']
-    procedure Open;
-    procedure Delete;
-  end;
-
   /// <summary>
   /// eine Liste der Items
   /// </summary>

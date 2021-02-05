@@ -54,7 +54,7 @@ var
 implementation
 
 uses
-  uFileController, frmNewItem;
+  uFileController, frmNewItem, uCommand;
 
 {$R *.dfm}
 {$REGION '< Form Create/Show and Co. >'}
@@ -168,9 +168,12 @@ begin
 end;
 
 procedure TForm1.ActionItemLoeschenExecute(Sender: TObject);
+var
+  deleteObj: IListViewCommand;
 begin
-  if lvCountries.SelCount <> 0 then
-    lvCountries.DeleteSelected;
+  // delete selected item
+  deleteObj:= TListViewCommand.Create;
+  deleteObj.DeleteSelectedItem(lvCountries);
   EnableItemDelete;
 end;
 
