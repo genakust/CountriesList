@@ -8,7 +8,7 @@ uses
 type
   IListViewCommand = interface
     ['{A9E5D472-C4F5-49F1-BBE1-EF3FCE1F831F}']
-    procedure Open;
+    procedure AddItemToList;
     procedure DeleteSelectedItem(aListView: TListView);
   end;
 
@@ -18,7 +18,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure Open;
+    procedure AddItemToList;
     procedure DeleteSelectedItem(aListView: TListView);
   end;
 
@@ -43,7 +43,7 @@ begin
   inherited;
 end;
 
-procedure TListViewCommand.Open;
+procedure TListViewCommand.AddItemToList;
 begin
 
 end;
