@@ -8,6 +8,18 @@ uses
 type
   IListViewCommand = interface
     ['{A9E5D472-C4F5-49F1-BBE1-EF3FCE1F831F}']
+    ///<summary> Add item to a given listView
+    /// </summary>
+    /// <param name="aImageIndex">Image index from an ImageList
+    /// </param>
+    /// <param name="aCountryName">A new country name
+    /// </param>
+    /// <param name="aComment">A new comment or number of residents
+    /// </param>
+    /// <param name="aComment">A ListView to add an new item
+    /// </param>
+    /// <remarks> If ListView is null it is nothing to happen
+    /// </remarks>
     procedure AddItemToList(aImageIndex: integer;
       aCountryName, aComment: string; aListView: TListView);
     procedure DeleteSelectedItem(aListView: TListView);
