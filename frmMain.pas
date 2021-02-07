@@ -211,20 +211,10 @@ end;
 procedure TForm1.AddItemToList(aImageIndex: integer;
   aCountryName, aComment: string);
 var
-  newItem: TListItem;
-  I: integer;
+  addItemObj: IListViewCommand;
 begin
-  lvCountries.items.BeginUpdate;
-  try
-    newItem := lvCountries.items.Add;
-    for I := 0 to 2 do
-      newItem.SubItems.Add('');
-    newItem.ImageIndex := aImageIndex;
-    newItem.SubItems[0] := aCountryName;
-    newItem.SubItems[1] := aComment;
-  finally
-    lvCountries.items.EndUpdate;
-  end;
+  addItemObj:= TListViewCommand.Create;
+  addItemObj.AddItemToList(aImageIndex, aCountryName, aComment, lvCountries);
 end;
 {$ENDREGION}
 
