@@ -36,6 +36,8 @@ object Form1: TForm1
       ViewStyle = vsReport
       OnClick = ActionListViewClickExecute
       OnColumnClick = lvCountriesColumnClick
+      ExplicitLeft = 0
+      ExplicitTop = 0
     end
   end
   object MainMenu1: TMainMenu
